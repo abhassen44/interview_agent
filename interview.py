@@ -43,8 +43,7 @@ class State(TypedDict):
 def parse_resume_and_identify_role(file_path: str) -> str:
     """Parse the resume PDF and identify the role."""
     docs = load_and_split_documents(file_path)
-    return get_role_from_role(docs)
-
+    return get_role_from_resume(docs)
 @tool
 def generate_questions_for_role(role: str) -> str:
     """Generate technical interview questions based on the identified role."""
