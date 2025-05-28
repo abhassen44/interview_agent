@@ -16,8 +16,13 @@ genai.configure(api_key=GOOGLE_API_KEY)
 
 # === Load and Split PDF ===
 def load_and_split_documents(pdf_filename: str, chunk_size=1000, chunk_overlap=200):
-    pdf_path = Path(__file__).parent / pdf_filename
-    loader = PyPDFLoader(file_path=pdf_path)
+    # Handle both relative and absolute paths
+    if os.path.isabs(pdf_filename):
+        pdf_path = pdf_filename
+    else:
+        pdf_path = Path(__file__).parent / pdf_filename
+    
+    loader = PyPDFLoader(file_path=str(pdf_path))
     docs = loader.load()
 
     text_splitter = RecursiveCharacterTextSplitter(
